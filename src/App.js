@@ -1,10 +1,11 @@
 import React from 'react';
-import Title from './Components/Title';
+// import Details from './Components/Details';
+import Main from './Components/Main';
 
 import './App.scss';
 
 function App() {
-  return React.createElement('div', { className: 'App' }, Title);
+  return <Main />;
 }
 
 export default App;
