@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import Card from '../Card';
+import Filter from '../Filter';
 
 const mockData = [
   {
@@ -49,10 +50,7 @@ class CardList extends Component {
 
     return (
       <Fragment>
-        <div className="App_label-group App_filter">
-          <label>Filter:</label>
-          <input value={filterValue} onChange={this.handleChange} />
-        </div>
+        <Filter filterValue={filterValue} handleChange={this.handleChange} />
         <ul className="App_card-list">
           {filteredCharacterList.map(char => (
             <Card
