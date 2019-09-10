@@ -1,18 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Card = () => {
+const Card = props => {
   return (
     <li className="App_card">
-      <img
-        src="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-        className="App_card_image"
-      />
+      <img src={props.src} className="App_card_image" />
       <div className="App_card_info">
-        <span className="App_card_name">Rick Sanchez</span>
-        <span className="App_card_favorite">⭐</span>
+        <span className="App_card_name">{props.name}</span>
+        {props.favorite ? <span className="App_card_favorite">⭐</span> : null}
       </div>
     </li>
   );
+};
+
+Card.propTypes = {
+  src: PropTypes.string,
+  name: PropTypes.string,
+  favorite: PropTypes.bool
+};
+
+Card.defaultProps = {
+  src: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+  name: 'Rick Sanchez',
+  favorite: false
 };
 
 export default Card;

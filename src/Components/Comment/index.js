@@ -1,16 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Comment = () => {
+const Comment = props => {
   return (
     <div className="App_comment">
-      <p>
-        lorem loremlorem loremlorem loremlorem lorem lorem loremlorem loremlorem
-        lorem lorem lorem lorem loremlorem loremlorem loremlorem loremlorem
-        loremlorem lorem
-      </p>
-      <span>By: Adrian</span>
+      <p>{props.comment}</p>
+      <span>By: {props.author}</span>
     </div>
   );
+};
+
+Comment.propTypes = {
+  comment: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired
 };
 
 export default Comment;

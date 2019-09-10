@@ -9,7 +9,7 @@ const CardList = () => {
         <input />
       </div>
       <ul className="App_card-list">
-        <Card />
+        <Card favorite name="Morty Smith" />
         <Card />
         <Card />
         <Card />
