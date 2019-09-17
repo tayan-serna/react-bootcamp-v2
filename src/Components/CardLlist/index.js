@@ -1,39 +1,27 @@
 import React, { Fragment, Component } from 'react';
+import axios from 'axios';
 import Card from '../Card';
 import Filter from '../Filter';
 
-const mockData = [
-  {
-    id: 1,
-    name: 'Rick Sanchez',
-    image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-    favorite: false
-  },
-  {
-    id: 2,
-    name: 'Morty Smith',
-    image: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
-    favorite: false
-  },
-  {
-    id: 3,
-    name: 'Summer Smith',
-    image: 'https://rickandmortyapi.com/api/character/avatar/3.jpeg',
-    favorite: true
-  },
-  {
-    id: 4,
-    name: 'Beth Smith',
-    image: 'https://rickandmortyapi.com/api/character/avatar/4.jpeg',
-    favorite: false
-  }
-];
+
+const RickAndMortyAPI = 'https://rickandmortyapi.com/api/character/';
 class CardList extends Component {
   state = {
     filterValue: '',
-    filteredCharacterList: mockData,
-    characterList: mockData
+    filteredCharacterList: [],
+    characterList: [],
+    loading: true
   };
+
+  componentDidMount() {
+    axios.get(RickAndMortyAPI).then(({ data: { results } }) => {
+      this.setState({
+        characterList: results,
+        filteredCharacterList: results,
+        loading: false
+      })
+    });
+  }
 
   handleChange = e => {
     const filteredCharacterList = this.state.characterList.filter(val =>
@@ -46,13 +34,14 @@ class CardList extends Component {
   };
 
   render() {
-    const { filterValue, filteredCharacterList } = this.state;
+    const { filterValue, filteredCharacterList, loading } = this.state;
 
     return (
       <Fragment>
         <Filter filterValue={filterValue} handleChange={this.handleChange} />
         <ul className="App_card-list">
-          {filteredCharacterList.map(char => (
+          { loading && <span>Loading...</span>}
+          {!loading && filteredCharacterList.map(char => (
             <Card
               key={char.id}
               favorite={char.favorite}
