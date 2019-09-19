@@ -1,8 +1,9 @@
 import React, { Fragment, Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import axios from 'axios';
 import Card from '../Card';
 import Filter from '../Filter';
-
 
 const RickAndMortyAPI = 'https://rickandmortyapi.com/api/character/';
 class CardList extends Component {
@@ -19,7 +20,7 @@ class CardList extends Component {
         characterList: results,
         filteredCharacterList: results,
         loading: false
-      })
+      });
     });
   }
 
@@ -40,15 +41,17 @@ class CardList extends Component {
       <Fragment>
         <Filter filterValue={filterValue} handleChange={this.handleChange} />
         <ul className="App_card-list">
-          { loading && <span>Loading...</span>}
-          {!loading && filteredCharacterList.map(char => (
-            <Card
-              key={char.id}
-              favorite={char.favorite}
-              name={char.name}
-              src={char.image}
-            />
-          ))}
+          {loading && <span>Loading...</span>}
+          {!loading &&
+            filteredCharacterList.map(char => (
+              <Link to={`details/${char.id}`} key={char.id}>
+                <Card
+                  favorite={char.favorite}
+                  name={char.name}
+                  src={char.image}
+                />
+              </Link>
+            ))}
         </ul>
       </Fragment>
     );
