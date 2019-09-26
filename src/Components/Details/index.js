@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+
+import FavoriteContext from '../Context/FavoriteContext';
 
 const RickAndMortyAPI = 'https://rickandmortyapi.com/api/character/';
 const Details = props => {
   const [character, setCharacter] = useState({});
   const [loading, setLoading] = useState(true);
-  const [favoriteCharts, setFavoriteCharts] = useState({});
+  // const [favoriteCharts, setFavoriteCharts] = useState({});
+  const { favoriteCharts, setFavoriteCharts } = useContext(FavoriteContext);
+  console.log(favoriteCharts);
 
   useEffect(() => {
     axios
@@ -34,9 +38,11 @@ const Details = props => {
         </span>
         <img
           className="App_detail__image"
+          alt={character.name}
           src={character.image}
           onDoubleClick={() => {
             setFavoriteCharts({
+              ...favoriteCharts,
               [character.id]: favoriteCharts[character.id]
                 ? !favoriteCharts[character.id]
                 : true
