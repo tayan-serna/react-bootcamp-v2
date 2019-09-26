@@ -10,7 +10,6 @@ const Details = props => {
   const [loading, setLoading] = useState(true);
   // const [favoriteCharts, setFavoriteCharts] = useState({});
   const { favoriteCharts, setFavoriteCharts } = useContext(FavoriteContext);
-  console.log(favoriteCharts);
 
   useEffect(() => {
     axios

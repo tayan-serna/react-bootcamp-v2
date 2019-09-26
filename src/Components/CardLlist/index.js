@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Card from '../Card';
 import Filter from '../Filter';
+import FavoriteContext from '../Context/FavoriteContext';
 
 const RickAndMortyAPI = 'https://rickandmortyapi.com/api/character/';
 class CardList extends Component {
@@ -13,6 +14,8 @@ class CardList extends Component {
     characterList: [],
     loading: true
   };
+
+  static contextType = FavoriteContext;
 
   componentDidMount() {
     axios.get(RickAndMortyAPI).then(({ data: { results } }) => {
@@ -36,6 +39,7 @@ class CardList extends Component {
 
   render() {
     const { filterValue, filteredCharacterList, loading } = this.state;
+    const { favoriteCharts } = this.context;
 
     return (
       <Fragment>
@@ -46,7 +50,7 @@ class CardList extends Component {
             filteredCharacterList.map(char => (
               <Link to={`details/${char.id}`} key={char.id}>
                 <Card
-                  favorite={char.favorite}
+                  favorite={favoriteCharts[char.id] || false}
                   name={char.name}
                   src={char.image}
                 />
