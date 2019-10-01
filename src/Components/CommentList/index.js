@@ -1,41 +1,35 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import Comment from '../Comment';
 
-const CommentList = () => {
+const CommentList = props => {
   return (
     <div className="App_comments">
-      <Comment
-        comment="lorem loremlorem loremlorem loremlorem lorem lorem loremlorem loremlorem
-        lorem lorem lorem lorem loremlorem loremlorem loremlorem loremlorem
-        loremlorem lorem"
-        author="Adrian"
-      />
-      <Comment
-        comment="lorem loremlorem loremlorem loremlorem lorem lorem loremlorem loremlorem
-        lorem lorem lorem lorem loremlorem loremlorem loremlorem loremlorem
-        loremlorem lorem"
-        author="Chiforinfulo"
-      />
-      <Comment
-        comment="lorem loremlorem loremlorem loremlorem lorem lorem loremlorem loremlorem
-        lorem lorem lorem lorem loremlorem loremlorem loremlorem loremlorem
-        loremlorem lorem"
-        author="Anastacio"
-      />
-      <Comment
-        comment="lorem loremlorem loremlorem loremlorem lorem lorem loremlorem loremlorem
-        lorem lorem lorem lorem loremlorem loremlorem loremlorem loremlorem
-        loremlorem lorem"
-        author="Lorenzo"
-      />
-      <Comment
-        comment="lorem loremlorem loremlorem loremlorem lorem lorem loremlorem loremlorem
-        lorem lorem lorem lorem loremlorem loremlorem loremlorem loremlorem
-        loremlorem lorem"
-        author="Pedrito"
-      />
+      {props.comments.map(comment => (
+        <Comment
+          key={comment.id}
+          comment={comment.comment}
+          author={comment.author}
+        />
+      ))}
     </div>
   );
 };
 
-export default CommentList;
+CommentList.propTypes = {
+  comments: PropTypes.arrayOf(
+    PropTypes.shape({
+      author: PropTypes.string,
+      comment: PropTypes.string,
+      id: PropTypes.number
+    })
+  ).isRequired
+};
+
+const mapStateToProps = ({ comments }) => ({
+  comments
+});
+
+export default connect(mapStateToProps)(CommentList);
