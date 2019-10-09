@@ -4,10 +4,20 @@ import PropTypes from 'prop-types';
 const Card = props => {
   return (
     <li className="App_card">
-      <img src={props.src} className="App_card_image" />
+      <img
+        src={props.src}
+        className="App_card_image"
+        data-testid="card-image"
+      />
       <div className="App_card_info">
-        <span className="App_card_name">{props.name}</span>
-        {props.favorite ? <span className="App_card_favorite">⭐</span> : null}
+        <span className="App_card_name" data-testid="card-name">
+          {props.name}
+        </span>
+        {props.favorite ? (
+          <span className="App_card_favorite" data-testid="card-favorite">
+            ⭐
+          </span>
+        ) : null}
       </div>
     </li>
   );

@@ -44,8 +44,8 @@ class CardList extends Component {
     return (
       <Fragment>
         <Filter filterValue={filterValue} handleChange={this.handleChange} />
-        <ul className="App_card-list">
-          {loading && <span>Loading...</span>}
+        <ul className="App_card-list" data-testid="card-list">
+          {loading && <span data-testid="card-loading">Loading...</span>}
           {!loading &&
             filteredCharacterList.map(char => (
               <Link to={`details/${char.id}`} key={char.id}>
